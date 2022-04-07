@@ -2,8 +2,6 @@ import React from 'react';
 import { getMenuItems } from "../data/data";
 import { Link } from "react-router-dom";
 import icon from "../images/1.jpg";
-// import Caver from 'caver-js';
-// import contractJson from '../data/contract.json';
 
 const Card = (props) => {
     return (
@@ -51,14 +49,14 @@ const Card = (props) => {
 const Menu = () => {
     let menuItems = getMenuItems();
     return (
-    //   <div className='grid sm:grid-cols-4 grid-cols-2 bg-black grid-gap-2px'>
-    // <div className='grid sm:grid-cols-4 grid-cols-2 grid-rows-4 gap-2 bg-black sm:px-20'>
-    <div className='flex flex-wrap justify-start bg-black sm:px-10'>
+    <div className='bg-black flex justify-center'>
+        <div className='sm:w-3/4 flex flex-wrap justify-start bg-black sm:px-10'>
           {menuItems.map((menuItem) => (
               <Card key={menuItem.key} name={menuItem.name} image={menuItem.image}
                 price={menuItem.price} amount={menuItem.amount}/>
           ))}
-      </div>
+        </div>
+    </div>
       
     );
 }
