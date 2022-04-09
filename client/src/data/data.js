@@ -3,14 +3,14 @@ let menueItems = [
       key: 1,
       name: "Cheese Burger",
       image: "../../images/1.jpg",
-      price: 10,
+      price: 1,
       amount: 11,
     },
     {
       key: 2,
       name: "Double Patty Burger",
       image: "../../images/2.jpg",
-      price: 15,
+      price: 1,
       amount: 11,
     },
     {

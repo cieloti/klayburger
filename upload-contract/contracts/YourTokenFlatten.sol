@@ -1384,9 +1384,9 @@ contract KIP17YourToken is KIP17, KIP17Enumerable, KIP17Metadata, MinterRole {
     }
 
     function withdraw() external onlyMinter{
-      // This code transfers 5% of the withdraw as a donation.
+      // This code transfers 5% of the withdraw to JoCoding as a donation.
       // =============================================================================
-      // 0x37c643226Ef54A82967e1398F9D5B0681dF82282.transfer(address(this).balance * 5 / 100);
+      // 0x3e944Ca8B08a0a0D3245B05ABF01586B9142f52C.transfer(address(this).balance * 5 / 100);
       // =============================================================================
       // This will transfer the remaining contract balance to the owner.
       // Do not remove this otherwise you will not be able to withdraw the funds.
@@ -1784,11 +1784,36 @@ contract KIP17Pausable is KIP13, KIP17, Pausable {
 
 pragma solidity ^0.5.0;
 
+contract klayburger is KIP17Full, KIP17Mintable, KIP17MetadataMintable, KIP17Burnable, KIP17Pausable {
+    mapping(string => uint256) private menus;  // 1Klay = 1000000000000000000
+    mapping(address => string) private users;
 
+    function addUser(address user, string memory menu) private {
+        if (bytes(users[user]).length ==0) {
+            users[user] = menu;
+        } else {
+            users[user] = string(abi.encodePacked(users[user], " ", menu));
+        }
+    }
 
+    function getUser(address user) public view returns(string memory) {
+        return users[user];
+    }
 
+    function order(string calldata menu) external payable {
+        require(msg.value == menus[menu], "Not Enough Klay");
+        "0x123".transfer(msg.value);
+        addUser(msg.sender, menu);
+    }
 
-contract YourTokenFlatten is KIP17Full, KIP17Mintable, KIP17MetadataMintable, KIP17Burnable, KIP17Pausable {
+    function addMenu(string memory menu, uint256 price) public {
+        menus[menu] = price;
+    }
+
+    function getPrice(string memory menu) public view returns(uint256) {
+        return menus[menu];
+    }
+
     constructor (string memory name, string memory symbol) public KIP17Full(name, symbol) {
     }
 }
